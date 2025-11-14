@@ -19,63 +19,6 @@ function Menu() {
 console.log(i.category)
 ))
 
-  const menuItems = [
-  {
-    id: 1,
-    name: "Chilli Paneer",
-    category: "Veg",
-    price: 199,
-    description: "Crispy paneer cubes tossed in spicy chilli sauce with bell peppers",
-    image: "/chilli-paneer.jpg",
-    spiceLevel: 3,
-  },
-  {
-    id: 2,
-    name: "Red Chilli Chicken",
-    category: "Non-Veg",
-    price: 249,
-    description: "Tender chicken cooked in our signature fiery red chilli masala",
-    image: "/red-chilli-chicken.jpg",
-    spiceLevel: 4,
-  },
-  {
-    id: 3,
-    name: "Dragon Prawns",
-    category: "Non-Veg",
-    price: 349,
-    description: "Juicy prawns in a blazing chilli garlic sauce with a smoky finish",
-    image: "/dragon-prawns.jpg",
-    spiceLevel: 4,
-  },
-  {
-    id: 4,
-    name: "Chilli Cheese Naan",
-    category: "Bread",
-    price: 79,
-    description: "Soft naan stuffed with mozzarella and roasted red chillies",
-    image: "/chilli-cheese-naan.jpg",
-    spiceLevel: 2,
-  },
-  {
-    id: 5,
-    name: "Spicy Goat Curry",
-    category: "Non-Veg",
-    price: 299,
-    description: "Slow-cooked goat meat with whole red chillies and aromatic spices",
-    image: "/goat-curry.jpg",
-    spiceLevel: 5,
-  },
-  {
-    id: 6,
-    name: "Stuffed Chilli Peppers",
-    category: "Veg",
-    price: 159,
-    description: "Whole green chillies stuffed with paneer and spices, fried to perfection",
-    image: "/stuffed-chilli-peppers.jpg",
-    spiceLevel: 3,
-  },
-]
-
 const categories = ["All", ...new Set(items.map((item) => item.category))]
 
 // const categories = ["All", "Veg", "Non-Veg", "Bread"]
@@ -119,7 +62,7 @@ const categories = ["All", ...new Set(items.map((item) => item.category))]
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-rows-3 md:grid-cols-2 lg:grid-cols-5 gap-8 relative z-10">
+        <div className="grid grid-rows-3 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
           {filteredItems.map((item) => (
             <div
               key={item.id}
