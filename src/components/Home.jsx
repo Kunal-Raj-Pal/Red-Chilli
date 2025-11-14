@@ -5,6 +5,7 @@ import Booking from "./Booking";
 import Contact from "./Contact";
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css'
+import SkeletonCard from "./SkeltonCard";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -12,6 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   gsap.registerPlugin(useGSAP);
   gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +36,7 @@ gsap.ticker.lagSmoothing(0);
   const fetchdata = async () => {
     const res = await api.get("/menu/");
     setItems(res.data);
+    setLoading(false);
   };
   useEffect(() => {
     fetchdata();
@@ -67,7 +70,7 @@ gsap.ticker.lagSmoothing(0);
         trigger: menu.current,
         start: "top 50%",
         end:"20% 50%",
-        markers: true,
+        markers: false,
         scrub: 2,
       }
     });
@@ -261,7 +264,7 @@ gsap.ticker.lagSmoothing(0);
             </p>
           </div>
           {/* Menu Grid */}
-          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
+          {loading? [...Array(6)].map((_, i) => <SkeletonCard key={i} />) : <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             {filteredItems.map((item, index) => (
               <div
                 key={item.id}
@@ -313,7 +316,7 @@ gsap.ticker.lagSmoothing(0);
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
             ))}
-          </div>
+          </div>}
           <div className="flex justify-center mt-20">
             <Link to={"/menu"}>
               <button className="cursor-pointer h-14 bg-red-600 md:bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
