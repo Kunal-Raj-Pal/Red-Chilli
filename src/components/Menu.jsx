@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import SkeletonCard from "./SkeltonCard";
 import api from "./Api";
 function Menu() {
   const [items, setItems] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All")
+  const [loading, setLoading] = useState(true);
 
    
    const fetchdata = async () =>{
      const res = await api.get("/menu/")
      setItems(res.data)
+     setLoading(false);
     }
 
     useEffect(() => {
@@ -62,7 +64,7 @@ const categories = ["All", ...new Set(items.map((item) => item.category))]
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-rows-3 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+        {loading? [...Array(6)].map((_, i) => <SkeletonCard key={i} />) : <div className="grid grid-rows-3 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
           {filteredItems.map((item) => (
             <div
               key={item.id}
@@ -108,7 +110,7 @@ const categories = ["All", ...new Set(items.map((item) => item.category))]
               <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
             </div>
           ))}
-        </div>
+        </div>}
       </div>
     </section>
   );
