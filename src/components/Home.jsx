@@ -5,7 +5,13 @@ import Booking from "./Booking";
 import Contact from "./Contact";
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css'
-import SkeletonCard from "./SkeltonCard";
+
+import paneer from "../assets/img/paneer.jpeg";
+import breadPakoda from "../assets/img/bread-pakoda.webp";
+import breadPizza from "../assets/img/bread-pizza.webp";
+import butterchicken from "../assets/img/butterchicken.jpg";
+import garlicBread from "../assets/img/garlic-bread.jpg";
+import vegSandwich from "../assets/img/veg-sandwich.jpeg";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -16,6 +22,65 @@ export default function Hero() {
   const [loading, setLoading] = useState(true);
   gsap.registerPlugin(useGSAP);
   gsap.registerPlugin(ScrollTrigger);
+
+     const menuItems = [
+      {
+        id: 1,
+        name: "Chilli Paneer",
+        category: "Veg",
+        price: 199,
+        description: "Crispy paneer cubes tossed in spicy chilli sauce with bell peppers",
+        image: paneer,
+        spiceLevel: 3,
+      },
+      {
+        id: 2,
+        name: "Butter Chicken",
+        category: "Non-Veg",
+        price: 249,
+        description: "Tender chicken cooked in our signature fiery red chilli masala",
+        image: butterchicken,
+        spiceLevel: 4,
+      },
+      {
+        id: 3,
+        name: "Bread Pakoda",
+        category: "Bread",
+        price: 349,
+        description: "Juicy prawns in a blazing chilli garlic sauce with a smoky finish",
+        image: breadPakoda,
+        spiceLevel: 4,
+      },
+      {
+        id: 4,
+        name: "Bread Pizza",
+        category: "Bread",
+        price: 79,
+        description: "Soft naan stuffed with mozzarella and roasted red chillies",
+        image: breadPizza,
+        spiceLevel: 2,
+      },
+      {
+        id: 5,
+        name: "Garlic Bread",
+        category: "Bread",
+        price: 69,
+        description: "Garlic stuffed bread with spices",
+        image: garlicBread,
+        spiceLevel: 5,
+      },
+      {
+        id: 6,
+        name: "Veg Sandwich",
+        category: "Bread",
+        price: 159,
+        description: "Veg sandwich stuffed with paneer and spices",
+        image: vegSandwich,
+        spiceLevel: 3,
+      },
+    ];
+
+    const filteredItemss = menuItems.filter(item => item)
 
   // Initialize a new Lenis instance for smooth scrolling
 const lenis = new Lenis();
@@ -264,18 +329,16 @@ gsap.ticker.lagSmoothing(0);
             </p>
           </div>
           {/* Menu Grid */}
-          {loading? [...Array(6)].map((_, i) => <SkeletonCard key={i} />) : <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            {filteredItems.map((item, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10 max-w-5xl mx-auto">
+            {filteredItemss.map((item, index) => (
               <div
                 key={item.id}
-                className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border-2 border-red-100 ${
-                  index > 2 ? "block sm:block hidden" : ""
-                }`}
+                className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 border-2 border-red-100 ${index > 2 ? "block sm:block hidden" : ""}`}
               >
                 {/* Spice Level Badge */}
-                <div className="absolute top-4 right-4 z-20 bg-red-600 text-white rounded-full px-3 py-1 text-sm font-bold">
+                {/* <div className="absolute top-4 right-4 z-20 bg-red-600 text-white rounded-full px-3 py-1 text-sm font-bold">
                   {"🌶️".repeat(item.spiceLevel)}
-                </div>
+                </div> */}
 
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden bg-gradient-to-br from-red-100 to-orange-100">
@@ -316,7 +379,7 @@ gsap.ticker.lagSmoothing(0);
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 to-orange-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
             ))}
-          </div>}
+          </div>
           <div className="flex justify-center mt-20">
             <Link to={"/menu"}>
               <button className="cursor-pointer h-14 bg-red-600 md:bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
